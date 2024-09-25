@@ -142,17 +142,18 @@ Proceso de Pago:
         Moodle usa la API de LNbits para verificar el estado de la factura.
         Una vez que se detecta el pago, Moodle matricula automáticamente al usuario en el curso.
 ## Diagrama de flujo del proceso de pago
+
 ```mermaid
-graph TD
-    A[Usuario selecciona un curso] --> B[Opción de pagar con LN]
-    B --> C[Generar invoice con LNbits API]
-    C --> D[Factura generada: QR o Lightning URL]
-    D --> E[Usuario paga usando su billetera LN]
-    E --> F[LNbits confirma pago a Moodle]
-    F --> G[Moodle matricula al usuario en el curso]
+graph TD;
+    A[Usuario selecciona un curso] --> B[Opción de pagar con LN];
+    B --> C[Generar invoice con LNbits API];
+    C --> D[Factura generada: QR o Lightning URL];
+    D --> E[Usuario paga usando su billetera LN];
+    E --> F[LNbits confirma pago a Moodle];
+    F --> G[Moodle matricula al usuario en el curso];
+```
 
 ## Webhook para recibir confirmaciones de pago
-```
 
 En el archivo enrol.php, puedes configurar un endpoint en Moodle que reciba la confirmación de pago desde LNbits.
 ```php
