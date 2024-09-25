@@ -5,22 +5,20 @@ El objetivo de este diseño es definir la guía para la creación del plugin de 
 
 ## Desarrollo del plugin de Moodle
 
-Primero, necesitamos un plugin para realizar pagos en Moodle que interactúe con Lightning Network. Moodle ya tiene una estructura para manejar pagos a través de plugins como PayPal o Stripe, y se puede usar como referencia.
+Primero, necesitamos un plugin para realizar pagos en Moodle que interactúe con Lightning Network. Moodle ya tiene una estructura para manejar pagos a través de plugins como PayPal o Stripe, y se puede usar como referencia. Aquí dejo lo pasos que pienso podrían hacer falta para conseguir el objetivo:
 
-Pasos:
+1. Configura un plugin de tipo pago:
+    - En Moodle, los plugins de pago están dentro de la categoría de “enrolment” (matrícula). El plugin que desarrolles se debe basar en este tipo.
+    - Crea la estructura básica del plugin en moodle/enrol/lightning:
+        - Carpeta del plugin: enrol/lightning
+        - Archivos principales:
+            - version.php: Define la versión y las dependencias del plugin.
+            - enrol.php: Contiene la lógica de matrícula para el curso.
+            - settings.php: Permite configurar opciones del plugin (por ejemplo, la integración con LNbits).
+            - lib.php: Funciones de integración.
+            - pluginname.php: Lenguajes y nombres del plugin.
 
-    Configura un plugin de tipo pago:
-        En Moodle, los plugins de pago están dentro de la categoría de “enrolment” (matrícula). El plugin que desarrolles se debe basar en este tipo.
-        Crea la estructura básica del plugin en moodle/enrol/lightning:
-            Carpeta del plugin: enrol/lightning
-            Archivos principales:
-                version.php: Define la versión y las dependencias del plugin.
-                enrol.php: Contiene la lógica de matrícula para el curso.
-                settings.php: Permite configurar opciones del plugin (por ejemplo, la integración con LNbits).
-                lib.php: Funciones de integración.
-                pluginname.php: Lenguajes y nombres del plugin.
-
-    Configura el manejo de pagos:
+2. Configura el manejo de pagos:
         Usa las funciones de LNbits API para crear facturas Lightning (invoices). Puedes generar una nueva invoice al momento de que el usuario quiera matricularse en el curso.
         Al recibir el pago, la API de LNbits te enviará una confirmación que debes usar para matricular al usuario.
 
