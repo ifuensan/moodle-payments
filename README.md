@@ -1,6 +1,9 @@
 # moodle-payments
 
-1. Desarrollo del plugin de Moodle
+## Introducción
+El objetivo de este diseño es definir la guía para la creación del plugin de Moodle que permita a los usuarios pagar los cursos mediante Lightning Network utilizando LNbits como proveedor de pagos. Incluye la estructura de archivos, el flujo de proceso de pago y la integración con la API de LNbits. Así como los principales componentes de código que ayudarán posteriormente a desarrollar e implementar la solución en el entorno.
+
+## Desarrollo del plugin de Moodle
 
 Primero, necesitamos un plugin para realizar pagos en Moodle que interactúe con Lightning Network. Moodle ya tiene una estructura para manejar pagos a través de plugins como PayPal o Stripe, y se puede usar como referencia.
 
