@@ -61,7 +61,7 @@ Este enfoque te permitirá crear un plugin de Moodle que use Lightning Network p
 
 ## Estructura del Plugin de Moodle (Lightning Payment)
 ### Directorio del plugin: moodle/enrol/lightning/
-```
+```bash
 moodle/
 └── enrol/
     └── lightning/
@@ -78,7 +78,7 @@ moodle/
 ### Archivo version.php
 
 Define la versión del plugin y las dependencias, por ejemplo, el número de la versión de Moodle requerida.
-```
+```php
 defined('MOODLE_INTERNAL') || die();
 $plugin->version = 2024092500;  // Versión del plugin.
 $plugin->requires = 2020110900; // Requiere Moodle 3.10 o superior.
@@ -86,7 +86,7 @@ $plugin->component = 'enrol_lightning'; // Nombre del plugin.
 ```
 
 ### Archivo enrol.php
-```
+```php
 Gestiona el proceso de inscripción de los usuarios tras recibir confirmación de pago.
 function enrol_lightning_plugin_enrol_user($userid, $courseid, $payment_status) {
     if ($payment_status == 'paid') {
