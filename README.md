@@ -19,45 +19,43 @@ Primero, necesitamos un plugin para realizar pagos en Moodle que interactúe con
             - pluginname.php: Lenguajes y nombres del plugin.
 
 2. Configura el manejo de pagos:
-        Usa las funciones de LNbits API para crear facturas Lightning (invoices). Puedes generar una nueva invoice al momento de que el usuario quiera matricularse en el curso.
-        Al recibir el pago, la API de LNbits te enviará una confirmación que debes usar para matricular al usuario.
+- Usa las funciones de LNbits API para crear facturas Lightning (invoices). Puedes generar una nueva invoice al momento de que el usuario quiera matricularse en el curso.
+- Al recibir el pago, la API de LNbits te enviará una confirmación que debes usar para matricular al usuario.
 
-    Enlace con el sistema de matriculación de Moodle:
-        Modifica la función enrol_user() para matricular automáticamente al usuario cuando se confirme el pago por la factura Lightning.
-        Al recibir la confirmación de pago desde LNbits, puedes hacer que el usuario sea registrado en el curso específico.
+3. Enlace con el sistema de matriculación de Moodle:
+- Modifica la función enrol_user() para matricular automáticamente al usuario cuando se confirme el pago por la factura Lightning.
+- Al recibir la confirmación de pago desde LNbits, puedes hacer que el usuario sea registrado en el curso específico.
 
-    Configura la interfaz de usuario:
-        Añade una opción en la página del curso para pagar usando Lightning Network. Esto podría ser un botón que interactúe con LNbits para generar el invoice.
-        Usa tecnologías como Ajax para actualizar el estado del pago en tiempo real.
+3. Configura la interfaz de usuario:
+- Añade una opción en la página del curso para pagar usando Lightning Network. Esto podría ser un botón que interactúe con LNbits para generar el invoice.
+- Usa tecnologías como Ajax para actualizar el estado del pago en tiempo real.
 
-    Prueba el plugin:
-        Instala tu plugin en una instancia de Moodle de prueba. Verifica que se realice la transacción y que los usuarios se matriculen correctamente después de pagar.
+4. Prueba el plugin:
+- Instala tu plugin en una instancia de Moodle de prueba. Verifica que se realice la transacción y que los usuarios se matriculen correctamente después de pagar.
 
-2. Desarrollo del plugin de LNbits
+## Desarrollo del plugin de LNbits
 
 LNbits ya tiene una API para crear y manejar invoices. Tu plugin debería ser capaz de conectarse a esta API y manejar la confirmación de los pagos.
 Pasos:
 
-    Crea un plugin en LNbits:
-        Desarrolla un plugin de LNbits que pueda generar facturas para cursos en Moodle.
-        Este plugin necesitará una integración sencilla con la API de Moodle, o bien, podría enviar las confirmaciones de pago de vuelta a tu servidor Moodle para completar el proceso de matrícula.
+1. Crea un plugin en LNbits:
+- Desarrolla un plugin de LNbits que pueda generar facturas para cursos en Moodle.
+- Este plugin necesitará una integración sencilla con la API de Moodle, o bien, podría enviar las confirmaciones de pago de vuelta a tu servidor Moodle para completar el proceso de matrícula.
 
-    Integra Moodle y LNbits:
-        Al generar una factura en LNbits, el plugin debe enviar el estado del pago a Moodle.
-        Usa las API de LNbits para crear y verificar facturas. La API puede notificar a Moodle cuando un pago sea completado (por ejemplo, usando Webhooks).
+2. Integra Moodle y LNbits:
+- Al generar una factura en LNbits, el plugin debe enviar el estado del pago a Moodle.
+- Usa las API de LNbits para crear y verificar facturas. La API puede notificar a Moodle cuando un pago sea completado (por ejemplo, usando Webhooks).
 
-    Autenticación y seguridad:
-        Asegúrate de que la integración sea segura. LNbits y Moodle deben intercambiar tokens de seguridad o claves API para validar las solicitudes.
+3. Autenticación y seguridad:
+- Asegúrate de que la integración sea segura. LNbits y Moodle deben intercambiar tokens de seguridad o claves API para validar las solicitudes.
 
 3. Pasos Adicionales
-
-    Configura LNbits: Debes tener una instancia de LNbits corriendo, o puedes usar un servidor público. Configura una billetera para recibir los pagos de los cursos.
-    Pruebas con regtest o testnet: Puedes probar toda la infraestructura en un entorno de pruebas utilizando regtest o testnet para Lightning Network antes de pasarlo a producción.
+- Configura LNbits: Debes tener una instancia de LNbits corriendo, o puedes usar un servidor público. Configura una billetera para recibir los pagos de los cursos.
+- Pruebas con regtest o testnet: Puedes probar toda la infraestructura en un entorno de pruebas utilizando regtest o testnet para Lightning Network antes de pasarlo a producción.
 
 Documentación y recursos útiles:
-
-    Desarrollo de plugins en Moodle
-    LNbits API
+- [Desarrollo de plugins en Moodle]()
+- [LNbits API]()
 
 Este enfoque te permitirá crear un plugin de Moodle que use Lightning Network para los pagos y un plugin de LNbits que facilite la integración entre ambas plataformas.
 
