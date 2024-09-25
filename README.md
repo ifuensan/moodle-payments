@@ -95,4 +95,100 @@ function enrol_lightning_plugin_enrol_user($userid, $courseid, $payment_status) 
     }
 }
 ```
+### Archivo lib.php
 
+Aquí estarán las funciones para interactuar con la API de LNbits y generar facturas.
+
+```
+function generate_lightning_invoice($courseid, $amount) {
+    // Llama a la API de LNbits para generar una factura.
+    $lnbits_api_key = get_config('enrol_lightning', 'lnbits_api_key');
+    $url = "https://lnbits.example.com/api/v1/payments";
+
+    $params = [
+        'amount' => $amount * 1000,  // Satoshis
+        'memo' => 'Payment for course ' . $courseid
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'X-Api-Key: ' . $lnbits_api_key
+    ]);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    return json_decode($response, true);
+}
+```
+## Integración con LNbits
+Componentes principales:
+
+    LNbits API: El plugin de Moodle se conectará a la API de LNbits para generar facturas y obtener el estado de los pagos.
+    Webhooks de LNbits: LNbits puede enviar confirmaciones de pago a Moodle, utilizando una URL que reciba los webhooks. Esto se manejará dentro del plugin de Moodle.
+
+Proceso de Pago:
+
+    Generar factura Lightning:
+        Al seleccionar un curso y optar por el pago con Lightning, Moodle envía una solicitud a la API de LNbits para generar una factura.
+        LNbits responde con una factura (un código QR) que el usuario puede escanear.
+
+    Verificación del pago:
+        Moodle usa la API de LNbits para verificar el estado de la factura.
+        Una vez que se detecta el pago, Moodle matricula automáticamente al usuario en el curso.
+## Diagrama de flujo del proceso de pago
+graph TD
+    A[Usuario selecciona un curso] --> B[Opción de pagar con LN]
+    B --> C[Generar invoice con LNbits API]
+    C --> D[Factura generada: QR o Lightning URL]
+    D --> E[Usuario paga usando su billetera LN]
+    E --> F[LNbits confirma pago a Moodle]
+    F --> G[Moodle matricula al usuario en el curso]
+
+## Webhook para recibir confirmaciones de pago
+
+En el archivo enrol.php, puedes configurar un endpoint en Moodle que reciba la confirmación de pago desde LNbits.
+```php
+// Endpoint para recibir Webhook de LNbits
+function handle_lnbits_webhook() {
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+
+    if ($data['status'] == 'paid') {
+        $userid = $data['metadata']['userid'];
+        $courseid = $data['metadata']['courseid'];
+        
+        enrol_lightning_plugin_enrol_user($userid, $courseid, 'paid');
+    }
+}
+```
+
+## Configuración del plugin en Moodle
+Archivo settings.php
+
+Este archivo proporciona la interfaz para configurar el plugin dentro de Moodle, como agregar la clave API de LNbits.
+```php
+if ($ADMIN->fulltree) {
+    $settings->add(new admin_setting_configtext(
+        'enrol_lightning/lnbits_api_key',
+        get_string('lnbitsapikey', 'enrol_lightning'),
+        get_string('lnbitsapikey_desc', 'enrol_lightning'),
+        ''
+    ));
+}
+```
+
+## Ejemplo de conexión entre Moodle y LNbits
+```php
+$invoice = generate_lightning_invoice($courseid, $courseprice);
+
+if ($invoice) {
+    // Muestra el código QR o Lightning URL al usuario
+    echo 'Por favor, paga escaneando este código QR:';
+    echo '<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' . urlencode($invoice['payment_request']) . '" />';
+}
+```
