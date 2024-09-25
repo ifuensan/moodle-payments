@@ -2,7 +2,8 @@
 
 1. Desarrollo del plugin de Moodle
 
-Primero, necesitas un plugin de pago en Moodle que interactúe con Lightning Network. Moodle ya tiene una estructura para manejar pagos a través de plugins como PayPal o Stripe, y puedes usarla como referencia.
+Primero, necesitamos un plugin para realizar pagos en Moodle que interactúe con Lightning Network. Moodle ya tiene una estructura para manejar pagos a través de plugins como PayPal o Stripe, y se puede usar como referencia.
+
 Pasos:
 
     Configura un plugin de tipo pago:
