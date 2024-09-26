@@ -1,37 +1,38 @@
 # moodle-payments
 
 ## Introducción
-El objetivo de este diseño es definir la guía para la creación del plugin de Moodle que permita a los usuarios pagar los cursos mediante Lightning Network utilizando LNbits como proveedor de pagos. Incluye la estructura de archivos, el flujo de proceso de pago y la integración con la API de LNbits. Así como los principales componentes de código que ayudarán posteriormente a desarrollar e implementar la solución en el entorno.
+El objetivo de este diseño es definir la guía para la creación del plugin de Moodle que permita a los usuarios pagar los cursos mediante Lightning Network utilizando LNbits como proveedor de pagos. Incluye la estructura de archivos, el flujo del proceso de pago y la integración con la API de LNbits. Así como los principales componentes de código que ayudarán posteriormente a desarrollar e implementar la solución en el entorno.
 
 ## Desarrollo del plugin de Moodle
 
-Primero, necesitamos un plugin para realizar pagos en Moodle que interactúe con Lightning Network. Moodle ya tiene una estructura para manejar pagos a través de plugins como PayPal o Stripe, y se puede usar como referencia. Aquí dejo lo pasos que pienso podrían hacer falta para conseguir el objetivo:
+Primero, necesitaremos un plugin para realizar pagos en Moodle que interactúe con Lightning Network. Moodle ya tiene una estructura para manejar pagos a través de plugins como PayPal o Stripe, y se puede usar como referencia. Aquí dejo lo pasos que pienso podrían hacer falta para conseguir el objetivo:
 
-1. Configura un plugin de tipo pago:
-    - En Moodle, los plugins de pago están dentro de la categoría de “enrolment” (matrícula). El plugin que desarrolles se debe basar en este tipo.
-    - Crea la estructura básica del plugin en moodle/enrol/lightning:
-        - Carpeta del plugin: enrol/lightning
+1. Configurar un plugin de tipo pago:
+    - En Moodle, los plugins de pago están dentro de la categoría de “enrolment” (matrícula). El plugin a desarrollar se basará en este tipo.
+    - Se creará la estructura básica del plugin en `moodle/enrol/lightning`:
+        - Carpeta del plugin: `enrol/lightning`
         - Archivos principales:
-            - version.php: Define la versión y las dependencias del plugin.
-            - enrol.php: Contiene la lógica de matrícula para el curso.
-            - settings.php: Permite configurar opciones del plugin (por ejemplo, la integración con LNbits).
-            - lib.php: Funciones de integración.
-            - pluginname.php: Lenguajes y nombres del plugin.
+            - `version.php`: Define la versión y las dependencias del plugin.
+            - `enrol.php`: Contiene la lógica de matrícula para el curso.
+            - `settings.php`: Permite configurar opciones del plugin (por ejemplo, la integración con LNbits).
+            - `lib.php`: Funciones de integración.
+            - `pluginname.php`: Lenguajes y nombres del plugin.
 
-2. Configura el manejo de pagos:
-- Usa las funciones de LNbits API para crear facturas Lightning (invoices). Puedes generar una nueva invoice al momento de que el usuario quiera matricularse en el curso.
+2. Configurar el manejo de los pagos:
+- Deberá usar las funciones de LNbits API para crear facturas Lightning (invoices). Puede generar una nueva invoice al momento de que el usuario quiera matricularse en el curso.
 - Al recibir el pago, la API de LNbits te enviará una confirmación que debes usar para matricular al usuario.
 
-3. Enlace con el sistema de matriculación de Moodle:
-- Modifica la función enrol_user() para matricular automáticamente al usuario cuando se confirme el pago por la factura Lightning.
+3. Enlazar con el sistema de matriculación de Moodle:
+- Es necesario modificar la función `enrol_user()` para matricular automáticamente al usuario cuando se confirme el pago por la factura Lightning.
 - Al recibir la confirmación de pago desde LNbits, puedes hacer que el usuario sea registrado en el curso específico.
 
-3. Configura la interfaz de usuario:
-- Añade una opción en la página del curso para pagar usando Lightning Network. Esto podría ser un botón que interactúe con LNbits para generar el invoice.
-- Usa tecnologías como Ajax para actualizar el estado del pago en tiempo real.
+3. Configurar la interfaz de usuario:
+- En la página del curso para pagar usando Lightning Network necesitarás añadir una opción. Esto podría ser un botón que interactúe con LNbits para generar la invoice.
+- Deberás usar tecnologías como Ajax para actualizar el estado del pago en tiempo real.
 
-4. Prueba el plugin:
-- Instala tu plugin en una instancia de Moodle de prueba. Verifica que se realice la transacción y que los usuarios se matriculen correctamente después de pagar.
+4. Probar el plugin:
+- Tras instala el plugin en una instancia de Moodle de prueba, que use monedas de testnet. Deberás verificar que se realice la transacción y que los usuarios se matriculen correctamente después de pagar.
+- Una vez lo valides en el entorno de pruebas, se podrá desplegar en producción y trabajar con monedas reales (valorar si es necesario pasar por regtest también antes).
 
 ## Desarrollo del plugin de LNbits
 
