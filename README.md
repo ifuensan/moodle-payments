@@ -55,6 +55,7 @@ Pasos:
 - Pruebas con regtest o testnet: Puedes probar toda la infraestructura en un entorno de pruebas utilizando regtest o testnet para Lightning Network antes de pasarlo a producción.
 
 Documentación y recursos útiles:
+- [Entorno de Desarollo - moodlehq](https://github.com/moodlehq/moodle-docker)
 - [Desarrollo de plugins en Moodle]()
 - [LNbits API]()
 
