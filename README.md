@@ -8,6 +8,8 @@ El objetivo de este diseño es definir la guía para la creación del plugin de 
 Primero, necesitaremos un plugin para realizar pagos en Moodle que interactúe con Lightning Network. Moodle ya tiene una estructura para manejar pagos a través de plugins como PayPal o Stripe, y se puede usar como referencia. Aquí dejo lo pasos que pienso podrían hacer falta para conseguir el objetivo:
 
 1. Configurar un plugin de tipo pago:
+    - https://moodledev.io/docs/4.5/apis/plugintypes
+    - https://moodledev.io/docs/4.5/apis/plugintypes/enrol
     - En Moodle, los plugins de pago están dentro de la categoría de “enrolment” (matrícula). El plugin a desarrollar se basará en este tipo.
     - Se creará la estructura básica del plugin en `moodle/enrol/lightning`:
         - Carpeta del plugin: `enrol/lightning`
