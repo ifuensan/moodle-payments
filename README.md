@@ -15,11 +15,23 @@ Aquí dejo lo pasos que pienso podrían hacer falta para conseguir el objetivo:
     - Se creará la estructura básica del plugin en `moodle/enrol/lightning`:
         - Carpeta del plugin: `enrol/lightning`
         - Archivos principales:
-            - `version.php`: Define la versión y las dependencias del plugin.
+            - `db/access.php`
             - `enrol.php`: Contiene la lógica de matrícula para el curso.
             - `settings.php`: Permite configurar opciones del plugin (por ejemplo, la integración con LNbits).
+            - `enrol_pluginname.php`: Lenguajes y nombres del plugin dentro del carpeta `lang`.
             - `lib.php`: Funciones de integración.
-            - `pluginname.php`: Lenguajes y nombres del plugin.
+            - `version.php`: Define la versión y las dependencias del plugin.
+
+```
+ enrol/pluginname/
+ |-- db
+ |   `-- access.php
+ |-- lang
+ |   `-- en
+ |       `-- enrol_pluginname.php
+ `-- lib.php
+ `-- version.php
+```
 
 2. Configurar el manejo de los pagos:
 - Deberá usar las funciones de LNbits API para crear facturas Lightning (invoices). Puede generar una nueva invoice al momento de que el usuario quiera matricularse en el curso.
