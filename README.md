@@ -127,7 +127,7 @@ function enrol_lightning_plugin_enrol_user($userid, $courseid, $payment_status) 
 
 Aquí estarán las funciones para interactuar con la API de LNbits y generar facturas.
 
-```
+```php
 function generate_lightning_invoice($courseid, $amount) {
     // Llama a la API de LNbits para generar una factura.
     $lnbits_api_key = get_config('enrol_lightning', 'lnbits_api_key');
