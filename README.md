@@ -72,7 +72,7 @@ moodle/
 └── enrol/
     └── lightning/
         ├── version.php         # Versión del plugin y dependencias.
-        ├── enrol.php           # Lógica de matrícula.
+        ├── +enrol.php+           # Lógica de matrícula.
         ├── settings.php        # Configuraciones del plugin (API de LNbits).
         ├── lib.php             # Funciones auxiliares.
         ├── lang                # Archivos de lenguaje.
@@ -152,6 +152,11 @@ function generate_lightning_invoice($courseid, $amount) {
 
     return json_decode($response, true);
 }
+```
+
+### Archivos de lenguaje
+```php
+function
 ```
 ## Integración con LNbits
 Componentes principales:
