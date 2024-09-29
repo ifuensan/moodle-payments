@@ -87,9 +87,6 @@ moodle/
 
 Define el nombre, la versión y las dependencias del plugin, por ejemplo, el número de la versión de Moodle requerida.
 
-<details>
-    <summary>version.php file example</summary>
-    
     ```php
     <?php
     // This file is part of Moodle - http://moodle.org/
@@ -130,7 +127,6 @@ Define el nombre, la versión y las dependencias del plugin, por ejemplo, el nú
         'mod_data' => 2022042100
     ];
     ```
-</details>
 
 ### Archivo enrol.php
 ```php
