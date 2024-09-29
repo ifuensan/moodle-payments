@@ -113,8 +113,9 @@ $plugin->dependencies = [
 ```
 
 ### Archivo enrol.php
-```php
 Gestiona el proceso de inscripción de los usuarios tras recibir confirmación de pago.
+
+```php
 function enrol_lightning_plugin_enrol_user($userid, $courseid, $payment_status) {
     if ($payment_status == 'paid') {
         // Enroll user in course if payment confirmed.
