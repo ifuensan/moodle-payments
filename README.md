@@ -89,6 +89,7 @@ Define el nombre, la versión y las dependencias del plugin, por ejemplo, el nú
 
 <details>
     <summary>version.php file example</summary>
+    
     ```php
     <?php
     // This file is part of Moodle - http://moodle.org/
