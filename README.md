@@ -10,7 +10,7 @@ Moodle ya tiene una estructura para manejar pagos a través de plugins como PayP
 
 Aquí dejo lo pasos que pienso podrían hacer falta para conseguir el objetivo:
 
-1. Configurar un plugin de tipo pago:
+1. Configurar un plugin de `Tipo Pago`:
     - Como hemos visto, en Moodle, los plugins de pago están dentro de la categoría de “enrolment” (matrícula) y por ello el nuestro se basará en dicho tipo.
     - Se creará la estructura básica del plugin en `moodle/enrol/lightning`:
         - Carpeta del plugin: `enrol/lightning`
